@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #141414;
+  --color-ink-soft: #1d1b1a;
+  --color-paper: #f3f0e9;
+  --color-paper-deep: #e8e3d9;
+  --color-stone: #a7a39d;
+  --color-stone-deep: #6f6b66;
+  /* vermelho do tsuru da logo */
+  --color-crimson: #e6003d;
+  --color-wine: #5c1220;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --ease-fold: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-crimson);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-crimson);
+    outline-offset: 4px;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  /* Títulos: Manrope semibold, entrelinha curta */
+  .display {
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+
+  /* Acento editorial pontual em Instrument Serif */
+  .serif-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .body-lg {
+    font-size: clamp(1.0625rem, 0.9rem + 0.5vw, 1.375rem);
+    font-weight: 200;
+    line-height: 1.55;
+  }
+
+  /* Seta dos CTAs */
+  .cta-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .cta-line .cta-rule {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.6s var(--ease-out-expo);
+  }
+  .cta-line .cta-rule::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .cta-line:hover .cta-rule {
+    width: 5rem;
+  }
+
+  /* Linhas de dobra decorativas */
+  .fold-lines {
+    background-image:
+      linear-gradient(135deg, transparent calc(50% - 0.5px), color-mix(in srgb, currentColor 14%, transparent) 50%, transparent calc(50% + 0.5px)),
+      linear-gradient(45deg, transparent calc(50% - 0.5px), color-mix(in srgb, currentColor 8%, transparent) 50%, transparent calc(50% + 0.5px));
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.intro-seen .preloader {
+  display: none;
+}
