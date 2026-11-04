@@ -63,7 +63,7 @@ export function Footer() {
       </div>
 
       <div className="relative mt-24 px-5 md:px-10">
-        <NameMark className="w-full text-paper" />
+        <NameMark className="mx-auto w-full max-w-5xl text-paper" />
       </div>
 
       <div className="relative flex flex-col gap-4 px-5 pb-8 pt-8 text-xs font-light text-stone md:flex-row md:items-center md:justify-between md:px-10">

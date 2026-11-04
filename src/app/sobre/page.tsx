@@ -11,7 +11,7 @@ export default function SobrePage() {
   return (
     <>
       {/* abertura */}
-      <section data-theme="light" className="relative overflow-hidden bg-paper text-ink">
+      <section data-theme="light" className="relative overflow-hidden bg-canvas text-ink">
         <div className="grid min-h-[100svh] lg:grid-cols-2">
           <div className="flex flex-col justify-end px-5 pb-14 pt-40 md:px-10 md:pb-20">
             <FadeUp immediate>
@@ -117,7 +117,7 @@ export default function SobrePage() {
       </section>
 
       {/* fechamento */}
-      <section data-theme="light" className="relative overflow-hidden bg-paper px-5 py-32 text-ink md:px-10 md:py-48">
+      <section data-theme="light" className="relative overflow-hidden bg-canvas px-5 py-32 text-ink md:px-10 md:py-48">
         <div className="fold-lines pointer-events-none absolute inset-0 text-ink" aria-hidden />
         <Tsuru
           className="pointer-events-none absolute -left-[10vw] bottom-0 h-[70vh] w-auto opacity-[0.05]"

@@ -1,4 +1,4 @@
-import { NAME_VIEWBOX, TSURU_VIEWBOX, namePaths, tsuruPaths } from "./brand-paths";
+import { FULL_NAME_VIEWBOX, TSURU_VIEWBOX, fullNamePaths, tsuruPaths } from "./brand-paths";
 
 type TsuruProps = {
   className?: string;
@@ -21,8 +21,8 @@ export function Tsuru({ className, ink = "currentColor", accent = "var(--color-c
 
 export function NameMark({ className }: { className?: string }) {
   return (
-    <svg viewBox={NAME_VIEWBOX} className={className} aria-hidden>
-      {namePaths.map((d, i) => (
+    <svg viewBox={FULL_NAME_VIEWBOX} className={className} aria-hidden>
+      {fullNamePaths.map((d, i) => (
         <path key={i} d={d} fill="currentColor" />
       ))}
     </svg>

@@ -64,17 +64,53 @@ export function VideoReveal() {
     { scope: root },
   );
 
-  const toggleSound = () => {
-    const next = !muted;
+  const command = (func: string, args: unknown[] = []) =>
     iframe.current?.contentWindow?.postMessage(
-      JSON.stringify({ event: "command", func: next ? "mute" : "unMute", args: [] }),
+      JSON.stringify({ event: "command", func, args, id: 1, channel: "widget" }),
       "*",
     );
+
+  const hideCaptions = () => {
+    command("unloadModule", ["captions"]);
+    command("unloadModule", ["cc"]);
+    command("setOption", ["captions", "track", {}]);
+  };
+
+  // O YouTube ignora cc_load_policy=0 quando o visitante tem legendas ligadas
+  // na conta, e recarrega o módulo a cada volta do loop. Escuta os eventos do
+  // player e descarrega as legendas sempre que elas reaparecem.
+  useEffect(() => {
+    if (!load) return;
+    const onMessage = (e: MessageEvent) => {
+      if (e.source !== iframe.current?.contentWindow || typeof e.data !== "string") return;
+      try {
+        const data = JSON.parse(e.data);
+        const opts: string[] | undefined = data?.info?.options;
+        if (opts?.some((o) => o === "captions" || o === "cc")) hideCaptions();
+        if (data?.event === "onStateChange" || data?.event === "onReady") hideCaptions();
+      } catch {}
+    };
+    window.addEventListener("message", onMessage);
+    // handshake: pede ao player que envie seus eventos
+    const id = window.setInterval(() => {
+      iframe.current?.contentWindow?.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*");
+      hideCaptions();
+    }, 1500);
+    return () => {
+      window.removeEventListener("message", onMessage);
+      window.clearInterval(id);
+    };
+  }, [load]);
+
+  const toggleSound = () => {
+    const next = !muted;
+    command(next ? "mute" : "unMute");
+    hideCaptions();
     setMuted(next);
   };
 
   return (
-    <div ref={root} data-theme="light" className="relative h-[100svh] overflow-hidden bg-paper">
+    <div ref={root} data-theme="light" className="relative h-[100svh] overflow-hidden bg-canvas">
       <div data-theme="dark" className="vr-frame absolute inset-0 bg-ink" style={{ clipPath: "inset(30% 25% 30% 25%)" }}>
         <div className="vr-media absolute inset-0">
           <Image
@@ -91,7 +127,10 @@ export function VideoReveal() {
               src={EMBED}
               title="Vanessa Veiga, demo reel"
               allow="autoplay; encrypted-media; picture-in-picture"
-              onLoad={() => setTimeout(() => setPlaying(true), 900)}
+              onLoad={() => {
+                hideCaptions();
+                setTimeout(() => setPlaying(true), 900);
+              }}
               className="pointer-events-none absolute left-1/2 top-1/2 h-[max(100svh,56.25vw)] w-[max(100vw,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0"
             />
           )}
@@ -102,9 +141,19 @@ export function VideoReveal() {
           <button
             type="button"
             onClick={toggleSound}
-            className="pointer-events-auto cta-line"
+            className={`pointer-events-auto group relative isolate flex items-center gap-3 rounded-full px-6 py-3.5 text-xs font-medium uppercase tracking-[0.18em] shadow-[0_10px_40px_rgba(0,0,0,0.35)] transition-[background-color,color,transform] duration-300 hover:scale-[1.04] md:px-7 md:py-4 md:text-sm ${
+              muted ? "bg-crimson text-paper hover:bg-paper hover:text-ink" : "bg-paper text-ink hover:bg-crimson hover:text-paper"
+            }`}
             aria-label={muted ? "Ativar som do vídeo" : "Desativar som do vídeo"}
           >
+            <svg viewBox="0 0 24 24" className="size-5 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" />
+              {muted ? (
+                <path d="m16 9 5 6m0-6-5 6" />
+              ) : (
+                <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+              )}
+            </svg>
             {muted ? "Ativar som" : "Desativar som"}
             <span className="relative flex h-3 items-end gap-[3px]" aria-hidden>
               {[0, 1, 2, 3].map((i) => (

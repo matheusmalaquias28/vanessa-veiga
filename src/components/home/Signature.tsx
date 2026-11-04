@@ -4,7 +4,7 @@ import { ScrubWords, SplitReveal } from "../ui/motion";
 
 export function Signature() {
   return (
-    <section data-theme="light" className="relative overflow-hidden bg-paper px-5 py-32 text-ink md:px-10 md:py-48">
+    <section data-theme="light" className="relative overflow-hidden bg-canvas px-5 py-32 text-ink md:px-10 md:py-48">
       <div className="fold-lines pointer-events-none absolute inset-0 text-ink" aria-hidden />
       <Tsuru
         className="pointer-events-none absolute -right-[8vw] top-1/2 h-[80vh] w-auto -translate-y-1/2 opacity-[0.05]"

@@ -37,7 +37,7 @@ function Cover({ book }: { book: Book }) {
 
 export default function LivrosPage() {
   return (
-    <section data-theme="light" className="bg-paper px-5 pb-32 pt-40 text-ink md:px-10 md:pb-44 md:pt-52">
+    <section data-theme="light" className="bg-canvas px-5 pb-32 pt-40 text-ink md:px-10 md:pb-44 md:pt-52">
       <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
         <SplitReveal as="h1" immediate className="display max-w-[13ch] text-[clamp(3rem,8vw,9.5rem)] lg:col-span-8">
           Histórias também vivem nas <span className="serif-accent text-crimson">páginas.</span>

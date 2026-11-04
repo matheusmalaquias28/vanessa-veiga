@@ -101,7 +101,7 @@ export function AreasPinned() {
   );
 
   return (
-    <section ref={root} data-theme="light" className="relative bg-paper text-ink">
+    <section ref={root} data-theme="light" className="relative bg-canvas text-ink">
       <div className="flex flex-col items-center px-5 pb-20 pt-28 text-center md:px-10 md:pb-28 md:pt-40">
         <p className="eyebrow mb-10 text-stone-deep">02 — Áreas de atuação</p>
         <SplitReveal className="display mx-auto max-w-[16ch] text-balance text-[clamp(2.25rem,6.4vw,7.5rem)]">

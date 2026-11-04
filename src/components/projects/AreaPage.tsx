@@ -59,7 +59,7 @@ export function AreaPage({ config }: { config: AreaConfig }) {
       : [{ title: "Demais produções", items: rest }];
 
   return (
-    <div className={dark ? "bg-ink text-paper" : "bg-paper text-ink"}>
+    <div className={dark ? "bg-ink text-paper" : "bg-canvas text-ink"}>
       {/* abertura */}
       <section data-theme="dark" className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-paper">
         <RevealImage src={config.cover ?? lead.image} alt="" priority immediate parallax={14} className="!absolute inset-0" imgClassName="opacity-75" />

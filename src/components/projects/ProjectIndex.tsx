@@ -52,7 +52,7 @@ export function ProjectIndex() {
 
   return (
     <div>
-      <div className="sticky top-0 z-20 -mx-5 mb-12 flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 bg-paper/90 px-5 pb-4 pt-24 backdrop-blur-md md:-mx-10 md:px-10 md:pt-28">
+      <div className="sticky top-0 z-20 -mx-5 mb-12 flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 bg-canvas/90 px-5 pb-4 pt-24 backdrop-blur-md md:-mx-10 md:px-10 md:pt-28">
         <div role="tablist" aria-label="Filtrar por área" className="flex flex-wrap gap-2">
           {filters.map((f) => (
             <button

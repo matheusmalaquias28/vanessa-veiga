@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: PageProps<"/projetos/[slug
         </div>
       </section>
 
-      <section data-theme="light" className="bg-paper px-5 py-24 text-ink md:px-10 md:py-36">
+      <section data-theme="light" className="bg-canvas px-5 py-24 text-ink md:px-10 md:py-36">
         <div className="grid gap-16 lg:grid-cols-12">
           <FadeUp className="lg:col-span-5">
             <p className="eyebrow mb-8 text-stone-deep">Ficha técnica</p>

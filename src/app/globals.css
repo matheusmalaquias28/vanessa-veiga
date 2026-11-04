@@ -5,6 +5,8 @@
   --color-ink-soft: #1d1b1a;
   --color-paper: #f3f0e9;
   --color-paper-deep: #e8e3d9;
+  /* fundo amarelo das seções claras */
+  --color-canvas: #fdbe2d;
   --color-stone: #a7a39d;
   --color-stone-deep: #6f6b66;
   /* vermelho do tsuru da logo */
@@ -25,7 +27,7 @@
   }
 
   body {
-    background: var(--color-paper);
+    background: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-weight: 300;

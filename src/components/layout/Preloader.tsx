@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { intro } from "@/lib/intro";
-import { TSURU_VIEWBOX, namePaths, NAME_VIEWBOX, tsuruPaths } from "../brand-paths";
+import { TSURU_VIEWBOX, fullNamePaths, FULL_NAME_VIEWBOX, tsuruPaths } from "../brand-paths";
 
 /*
  * Origami: uma folha quadrada (em pé, como um losango) é dobrada duas vezes
@@ -231,8 +231,8 @@ export function Preloader() {
         </svg>
 
         <div className="mt-2 flex h-[3.2vmin] min-h-4 items-center overflow-hidden text-paper">
-          <svg viewBox={NAME_VIEWBOX} className="h-full w-auto overflow-visible">
-            {namePaths.map((d, i) => (
+          <svg viewBox={FULL_NAME_VIEWBOX} className="h-full w-auto overflow-visible">
+            {fullNamePaths.map((d, i) => (
               <path key={i} className="pl-letter invisible" d={d} fill="currentColor" />
             ))}
           </svg>
