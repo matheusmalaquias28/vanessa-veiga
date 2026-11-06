@@ -4,9 +4,13 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-const VIDEO_ID = "PzDDxW4KOZs";
-// mudo é obrigatório para o autoplay; loop precisa da playlist com o próprio vídeo
-const EMBED = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1&cc_load_policy=0&enablejsapi=1`;
+const VIDEO_ID = "Fr3oMj-sTDw";
+// mudo é obrigatório para o autoplay; loop precisa da playlist com o próprio vídeo.
+// vq pede a qualidade máxima do upload (1080p); o YouTube também escolhe pela
+// área do player, que aqui já cobre a tela inteira.
+const EMBED = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1&cc_load_policy=0&enablejsapi=1&vq=hd1080`;
+// capa: tenta a maior miniatura e cai para as menores se ainda não existir
+const POSTERS = ["maxresdefault", "sddefault", "hqdefault"].map((n) => `https://i.ytimg.com/vi/${VIDEO_ID}/${n}.jpg`);
 
 /**
  * Demo reel da Vanessa: começa como uma janela pequena no centro e, com o
@@ -19,6 +23,7 @@ export function VideoReveal() {
   const [load, setLoad] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [poster, setPoster] = useState(0);
 
   // lazyload: monta o player só perto da viewport
   useEffect(() => {
@@ -76,6 +81,12 @@ export function VideoReveal() {
     command("setOption", ["captions", "track", {}]);
   };
 
+  // pede a maior qualidade disponível; o player limita ao máximo do upload
+  const forceQuality = () => {
+    command("setPlaybackQualityRange", ["hd1080", "highres"]);
+    command("setPlaybackQuality", ["hd1080"]);
+  };
+
   // O YouTube ignora cc_load_policy=0 quando o visitante tem legendas ligadas
   // na conta, e recarrega o módulo a cada volta do loop. Escuta os eventos do
   // player e descarrega as legendas sempre que elas reaparecem.
@@ -87,7 +98,10 @@ export function VideoReveal() {
         const data = JSON.parse(e.data);
         const opts: string[] | undefined = data?.info?.options;
         if (opts?.some((o) => o === "captions" || o === "cc")) hideCaptions();
-        if (data?.event === "onStateChange" || data?.event === "onReady") hideCaptions();
+        if (data?.event === "onStateChange" || data?.event === "onReady") {
+          hideCaptions();
+          forceQuality();
+        }
       } catch {}
     };
     window.addEventListener("message", onMessage);
@@ -113,13 +127,17 @@ export function VideoReveal() {
     <div ref={root} data-theme="light" className="relative h-[100svh] overflow-hidden bg-canvas">
       <div data-theme="dark" className="vr-frame absolute inset-0 bg-ink" style={{ clipPath: "inset(30% 25% 30% 25%)" }}>
         <div className="vr-media absolute inset-0">
-          <Image
-            src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
-            alt="Vanessa Veiga, demo reel"
-            fill
-            sizes="100vw"
-            className={`object-cover transition-opacity duration-1000 ${playing ? "opacity-0" : "opacity-100"}`}
-          />
+          {poster < POSTERS.length && (
+            <Image
+              key={POSTERS[poster]}
+              src={POSTERS[poster]}
+              alt="Vanessa Veiga, demo reel"
+              fill
+              sizes="100vw"
+              onError={() => setPoster((p) => p + 1)}
+              className={`object-cover transition-opacity duration-1000 ${playing ? "opacity-0" : "opacity-100"}`}
+            />
+          )}
           {load && (
             // cobre a tela em 16:9 sem faixas pretas; pointer-events-none mantém o scroll suave
             <iframe
@@ -129,6 +147,7 @@ export function VideoReveal() {
               allow="autoplay; encrypted-media; picture-in-picture"
               onLoad={() => {
                 hideCaptions();
+                forceQuality();
                 setTimeout(() => setPlaying(true), 900);
               }}
               className="pointer-events-none absolute left-1/2 top-1/2 h-[max(100svh,56.25vw)] w-[max(100vw,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0"

@@ -63,7 +63,7 @@ export function Hero() {
       if (!ready) return;
       const q = gsap.utils.selector(root);
       const frames = q(".hr-frame");
-      const split = SplitText.create(q(".hr-title"), { type: "lines,words", mask: "lines" });
+      const split = SplitText.create(q(".hr-title"), { type: "lines,words", mask: "lines", linesClass: "split-line" });
       const mm = gsap.matchMedia();
 
       // só começa a montagem com as fotos decodificadas, para nenhum corte abrir vazio
@@ -116,12 +116,15 @@ export function Hero() {
           .to(q(".hr-pmove"), { left: desktop ? "30%" : "0%", duration: reduce ? 0.01 : 1.3 }, settleAt)
           .to(q(".hr-shade"), { autoAlpha: 1, duration: 1 }, settleAt)
           .set(q(".hr-copy"), { autoAlpha: 1 }, settleAt + 0.25)
-          .from(split.lines, { yPercent: 110, duration: 1.3, stagger: 0.1, ease: "cine" }, settleAt + 0.25)
+          .from(split.lines, { yPercent: 140, duration: 1.3, stagger: 0.1, ease: "cine" }, settleAt + 0.25)
           .from(q(".hr-fade"), { autoAlpha: 0, y: 24, duration: 1.1, stagger: 0.1, ease: "cine" }, settleAt + 0.6)
           .fromTo(q(".hr-inset"), { clipPath: HIDDEN_BR }, { clipPath: FULL, duration: 1.1 }, settleAt + 0.8)
           .add(() => root.current?.setAttribute("data-intro", "done"));
 
         let alive = true;
+        // ritmo geral da entrada: < 1 desacelera tudo mantendo as proporções
+        if (!reduce) tl.timeScale(0.8);
+
         imagesReady.then(() => {
           if (alive) tl.play();
         });
@@ -177,7 +180,7 @@ export function Hero() {
             <p className="eyebrow mb-3 block text-paper/70">
               {categories[p.category].label} {p.year ? `· ${p.year}` : ""}
             </p>
-            <p className="display block text-[clamp(3rem,10vw,11rem)]">{p.title.split(":")[0]}</p>
+            <p className="display block pb-[0.18em] text-[clamp(3rem,10vw,11rem)]">{p.title.split(":")[0]}</p>
           </div>
         </div>
       ))}

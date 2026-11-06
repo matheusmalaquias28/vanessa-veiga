@@ -5,8 +5,8 @@
   --color-ink-soft: #1d1b1a;
   --color-paper: #f3f0e9;
   --color-paper-deep: #e8e3d9;
-  /* fundo amarelo das seções claras */
-  --color-canvas: #fdbe2d;
+  /* fundo das seções claras (mesmo tom do paper) */
+  --color-canvas: #f3f0e9;
   --color-stone: #a7a39d;
   --color-stone-deep: #6f6b66;
   /* vermelho do tsuru da logo */
@@ -67,6 +67,25 @@ html.lenis body {
     font-weight: 600;
     letter-spacing: -0.045em;
     line-height: 0.92;
+  }
+
+  /* Máscara das linhas animadas (SplitText). A entrelinha curta dos títulos
+     deixa acentos e descendentes (Á, ç, g, p) fora da caixa da linha; a folga
+     interna amplia a área visível e a margem negativa devolve o espaço, então
+     o layout não muda. Os itálicos ganham folga lateral também.
+     As linhas são blocos empilhados: margens negativas em cima e embaixo se
+     fundiriam entre vizinhas, então toda a compensação vai para baixo e o
+     `top` relativo sobe o bloco de volta à posição original. */
+  .split-line-mask {
+    position: relative;
+    top: -0.2em;
+    padding: 0.2em 0.08em 0.24em;
+    margin: 0 -0.08em -0.44em;
+  }
+  /* para máscaras que não estão empilhadas em fluxo de bloco (ex.: itens flex) */
+  .text-mask {
+    padding: 0.2em 0.08em 0.24em;
+    margin: -0.2em -0.08em -0.24em;
   }
 
   /* Acento editorial pontual em Instrument Serif */

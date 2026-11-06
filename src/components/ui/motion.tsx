@@ -26,7 +26,8 @@ export function SplitReveal({
       const el = ref.current!;
       const split = SplitText.create(el, { type: "lines", mask: "lines", linesClass: "split-line" });
       gsap.from(split.lines, {
-        yPercent: 105,
+        // passa da folga da máscara para começar totalmente escondida
+        yPercent: 140,
         duration: 1.2,
         stagger: 0.09,
         ease: "cine",

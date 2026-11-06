@@ -75,7 +75,7 @@ export function Chrome() {
           },
         )
         .fromTo(q(".mn-img"), { clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)" }, { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 1 }, 0.45)
-        .fromTo(q(".mn-link"), { yPercent: 110 }, { yPercent: 0, duration: 0.9, stagger: 0.06, ease: "cine" }, 0.55)
+        .fromTo(q(".mn-link"), { yPercent: 140 }, { yPercent: 0, duration: 0.9, stagger: 0.06, ease: "cine" }, 0.55)
         .fromTo(q(".mn-num"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, stagger: 0.06 }, 0.8)
         .fromTo(q(".mn-foot"), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "cine" }, 0.8);
     },
@@ -159,12 +159,14 @@ export function Chrome() {
             aria-controls="menu"
             className="group pointer-events-auto relative flex items-center gap-4 text-[0.8125rem] font-medium uppercase tracking-[0.18em]"
           >
-            <span className="relative block h-4 overflow-hidden">
-              <span className={`block transition-transform duration-500 ease-[var(--ease-out-expo)] ${open ? "-translate-y-full" : ""}`}>
+            {/* as duas palavras ocupam a mesma célula: a caixa fica com a largura
+                da maior ("Fechar") e a altura da linha inteira, sem cortar letras */}
+            <span className="relative grid h-[1.4em] justify-items-end overflow-hidden leading-[1.4]">
+              <span className={`[grid-area:1/1] block transition-transform duration-500 ease-[var(--ease-out-expo)] ${open ? "-translate-y-full" : ""}`}>
                 Menu
               </span>
               <span
-                className={`absolute left-0 top-full block transition-transform duration-500 ease-[var(--ease-out-expo)] ${open ? "-translate-y-full" : ""}`}
+                className={`[grid-area:1/1] block transition-transform duration-500 ease-[var(--ease-out-expo)] ${open ? "" : "translate-y-full"}`}
               >
                 Fechar
               </span>
@@ -185,11 +187,11 @@ export function Chrome() {
         <div className="mn-bg absolute inset-0 bg-ink" />
         <div className="relative grid h-full grid-cols-1 lg:grid-cols-[1.15fr_1fr]">
           <div className="flex flex-col justify-between px-5 pb-8 pt-28 md:px-10 md:pt-36">
-            <ul className="space-y-1">
+            <ul className="flex flex-col gap-1">
               {nav.map((item, i) => {
                 const current = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
                 return (
-                  <li key={item.href} className="overflow-hidden">
+                  <li key={item.href} className="text-mask overflow-hidden text-[clamp(2.75rem,min(9vw,12.5vh),8rem)] leading-[0.92]">
                     <Link
                       href={item.href}
                       tabIndex={open ? 0 : -1}
