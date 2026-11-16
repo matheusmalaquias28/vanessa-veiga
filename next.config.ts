@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   // Site 100% estático: sem Cache Components, para que as páginas desmontem
   // na navegação e os ScrollTriggers/Lenis sejam recriados de forma previsível.
   images: {
