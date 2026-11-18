@@ -53,7 +53,7 @@ const u = (id: string, w = 2000) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const portraits = {
-  hero: "/images/vanessa/retrato-elenco.webp",
+  hero: "/images/vanessa/retrato-hero.webp",
   about: u("1515138692129-197a2c608cfd"),
   aboutAlt: u("1533392151650-269f96231f65"),
   contact: "/images/vanessa/retrato-contato.webp",

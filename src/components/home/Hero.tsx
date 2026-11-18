@@ -199,7 +199,7 @@ export function Hero() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[55%_40%] lg:object-[50%_30%] grayscale"
+            className="object-cover object-[50%_20%] lg:object-[50%_0%] grayscale"
           />
         </div>
         <div className="hr-shade invisible absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10 lg:bg-gradient-to-r lg:from-ink/50 lg:via-transparent lg:to-transparent" />

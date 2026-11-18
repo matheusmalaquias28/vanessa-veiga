@@ -24,6 +24,7 @@ export function Chrome() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState(0);
   const header = useRef<HTMLElement>(null);
   const menu = useRef<HTMLDivElement>(null);
@@ -40,6 +41,7 @@ export function Chrome() {
       const under = stack.find((n) => !h.contains(n) && !menu.current?.contains(n));
       const t = under?.closest<HTMLElement>("[data-theme]")?.dataset.theme;
       setTheme(t === "light" ? "light" : "dark");
+      setScrolled(window.scrollY > 40);
     };
     const schedule = () => {
       if (!raf) raf = requestAnimationFrame(probe);
@@ -125,7 +127,9 @@ export function Chrome() {
     gsap.set(menu.current, { visibility: "hidden" });
   }, [pathname]);
 
-  const light = theme === "light" && !open;
+  // com o vidro escuro por trás, o cabeçalho fica sempre claro
+  const glass = scrolled && !open;
+  const light = theme === "light" && !open && !glass;
 
   return (
     <>
@@ -133,7 +137,14 @@ export function Chrome() {
         ref={header}
         className={`pointer-events-none fixed inset-x-0 top-0 z-[80] transition-colors duration-500 ${light ? "text-ink" : "text-paper"}`}
       >
-        <div className="flex items-center px-5 py-5 md:px-10 md:py-7">
+        {/* glassmorphism: preto translúcido com desfoque, só depois que a página rola */}
+        <div
+          aria-hidden
+          className={`absolute inset-x-0 top-0 h-[72px] border-b border-paper/10 bg-ink/60 backdrop-blur-xl backdrop-saturate-150 transition-opacity duration-500 md:h-[92px] ${
+            glass ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div className="relative flex h-[72px] items-center px-5 md:h-[92px] md:px-10">
           <Link href="/" aria-label="Vanessa Veiga, início" className="pointer-events-auto">
             <Logo />
           </Link>
@@ -141,7 +152,8 @@ export function Chrome() {
       </header>
 
       {/* controles com blend difference: invertem sozinhos sobre fotos e fundos claros */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[81] text-paper mix-blend-difference">
+      {/* sobre o vidro escuro o blend deixaria o texto cinza; ali ele fica claro e normal */}
+      <div className={`pointer-events-none fixed inset-x-0 top-0 z-[81] text-paper ${glass ? "" : "mix-blend-difference"}`}>
         <div className="flex h-[72px] items-center justify-end gap-[clamp(2rem,8vw,9rem)] px-5 md:h-[92px] md:px-10">
           <nav className="pointer-events-auto hidden items-center gap-9 lg:flex" aria-label="Atalhos">
             {categoryOrder.map((c) => (

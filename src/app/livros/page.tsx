@@ -22,16 +22,16 @@ export default function LivrosPage() {
         </FadeUp>
       </div>
 
-      <div className="mt-24 grid gap-x-8 gap-y-24 sm:grid-cols-2 lg:mt-36 lg:gap-x-12">
+      <div className="mt-24 grid gap-x-8 gap-y-24 sm:grid-cols-2 lg:mt-36 lg:grid-cols-3 lg:gap-x-10">
         {books.map((b, i) => {
           const meta = [b.year, b.role].filter(Boolean).join(" · ");
           const rating = bookRating(b);
           return (
-            <FadeUp key={b.slug} delay={i * 0.12} className={i % 2 === 1 ? "sm:mt-28" : ""}>
+            <FadeUp key={b.slug} delay={i * 0.12} className={i % 2 === 1 ? "sm:mt-28 lg:mt-0" : ""}>
               <Link href={`/livros/${b.slug}`} className="group block">
-                <BookCover book={b} />
+                <BookCover book={b} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw" />
                 {meta && <p className="eyebrow mt-8 text-stone-deep">{meta}</p>}
-                <h2 className={`${meta ? "mt-2" : "mt-8"} max-w-[24ch] text-[clamp(1.5rem,2.4vw,2.25rem)] font-semibold leading-[1.1] tracking-tight`}>
+                <h2 className={`${meta ? "mt-2" : "mt-8"} max-w-[24ch] text-[clamp(1.375rem,1.8vw,1.75rem)] font-semibold leading-[1.1] tracking-tight`}>
                   {b.title}
                 </h2>
                 {rating && (
@@ -40,7 +40,7 @@ export default function LivrosPage() {
                     {rating.count} avaliações
                   </p>
                 )}
-                <p className="mt-5 max-w-[52ch] font-extralight leading-relaxed text-ink/70 md:text-lg">{b.description}</p>
+                <p className="mt-5 max-w-[52ch] font-extralight leading-relaxed text-ink/70 md:text-lg lg:text-base">{b.description}</p>
                 <span className="cta-line mt-8">
                   Ver livro <span className="cta-rule" aria-hidden />
                 </span>
