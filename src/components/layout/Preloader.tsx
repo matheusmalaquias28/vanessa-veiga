@@ -151,7 +151,7 @@ export function Preloader() {
         const target = tsuruPaths[TARGET[Number(p.dataset.i)]];
         tl.to(
           p,
-          { morphSVG: target.d, fill: target.tone === "accent" ? "#e6003d" : FRONT, duration: 1.15, ease: "expo.inOut" },
+          { morphSVG: target.d, fill: target.tone === "accent" ? "#e6003d" : "#f5c400", duration: 1.15, ease: "expo.inOut" },
           `bird+=${(paths.length - 1 - n) * 0.05}`,
         );
       });

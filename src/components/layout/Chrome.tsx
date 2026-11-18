@@ -250,7 +250,7 @@ export function Chrome() {
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/10 to-transparent" />
-            <Tsuru className="absolute bottom-10 right-10 h-14 w-auto opacity-90" ink="var(--color-paper)" />
+            <Tsuru className="absolute bottom-10 right-10 h-14 w-auto opacity-90" ink="var(--color-gold)" />
           </div>
         </div>
       </div>

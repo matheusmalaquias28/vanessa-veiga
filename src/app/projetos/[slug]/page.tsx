@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { FadeUp, RevealImage, SplitReveal } from "@/components/ui/motion";
-import { byCategory, categories, getProject, projects } from "@/lib/content";
+import { byCategory, categories, getProject, outletOf, projectLines, projects, youtubeId } from "@/lib/content";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -33,14 +34,19 @@ export default async function ProjectPage({ params }: PageProps<"/projetos/[slug
   const next = siblings[(idx + 1) % siblings.length];
   const related = siblings.filter((s) => s.slug !== p.slug && s.slug !== next.slug).slice(0, 3);
 
+  const videos = [...(p.trailer && youtubeId(p.trailer) ? [p.trailer] : []), ...(p.videos ?? [])];
+  const hasMedia = videos.length > 0 || !!p.press || !!p.curiosities;
+
   const sheet = [
     ["Categoria", [cat.label, p.format].filter(Boolean).join(" / ")],
     ["Ano", p.year],
     ["Produção", p.production],
     ["Plataforma", p.platform],
     ["Direção", p.direction],
+    ["Exibição", p.distributor],
     ["Elenco", p.cast],
-    ["Função", "Direção de elenco"],
+    ["Elenco infantil", p.kidsCast],
+    ["Função", p.role ?? "Direção de elenco"],
   ].filter(([, v]) => v) as [string, string][];
 
   return (
@@ -84,16 +90,93 @@ export default async function ProjectPage({ params }: PageProps<"/projetos/[slug
           </FadeUp>
           <div className="lg:col-span-6 lg:col-start-7">
             <SplitReveal className="display text-[clamp(2rem,3.6vw,3.75rem)]">
-              {p.description ?? cat.tagline}
+              {p.description ?? (projectLines[p.category]?.[idx % projectLines[p.category]!.length] ?? cat.tagline)}
             </SplitReveal>
-            <FadeUp className="mt-10">
-              <p className="body-lg text-ink/65">
-                Informações complementares, galeria, trailer e imprensa serão publicados assim que o material oficial for
-                disponibilizado.
-              </p>
-            </FadeUp>
+            {p.quote ? (
+              <FadeUp className="mt-12 border-l-2 border-crimson pl-6">
+                <blockquote className="body-lg text-ink/80">“{p.quote.text}”</blockquote>
+                <a href={p.quote.url} target="_blank" rel="noreferrer" className="eyebrow mt-4 inline-block text-stone-deep hover:text-crimson">
+                  {p.quote.source}
+                </a>
+              </FadeUp>
+            ) : (
+              !hasMedia && (
+                <FadeUp className="mt-10">
+                  <p className="body-lg text-ink/65">
+                    Informações complementares, galeria, trailer e imprensa serão publicados assim que o material oficial
+                    for disponibilizado.
+                  </p>
+                </FadeUp>
+              )
+            )}
+            {p.curiosities && (
+              <FadeUp className="mt-14">
+                <p className="eyebrow mb-6 text-stone-deep">Curiosidades</p>
+                <ul className="divide-y divide-ink/10 border-y border-ink/10">
+                  {p.curiosities.map((c) => (
+                    <li key={c} className="py-4 font-light text-ink/80">
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </FadeUp>
+            )}
           </div>
         </div>
+
+        {videos.length > 0 && (
+          <div className="mt-28">
+            <p className="eyebrow mb-8 border-t border-ink/15 pt-6 text-stone-deep">Vídeos</p>
+            <div className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {videos.map((url) => {
+                const id = youtubeId(url);
+                return (
+                  <a key={url} href={url} target="_blank" rel="noreferrer" className="group block">
+                    <div className="relative aspect-video overflow-hidden bg-ink">
+                      {id ? (
+                        <Image
+                          src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover opacity-85 transition-[opacity,transform] duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                        />
+                      ) : (
+                        <span className="display absolute inset-0 grid place-items-center text-2xl text-paper/80">
+                          {outletOf(url)}
+                        </span>
+                      )}
+                      <span className="absolute left-4 top-4 grid size-11 place-items-center rounded-full bg-paper/90 text-ink transition-colors group-hover:bg-crimson group-hover:text-paper" aria-hidden>
+                        ▶
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm font-light text-ink/60">{url === p.trailer ? "Trailer" : outletOf(url)}</p>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {p.press && (
+          <div className="mt-28">
+            <p className="eyebrow mb-2 border-t border-ink/15 pt-6 text-stone-deep">Na imprensa</p>
+            <ul className="divide-y divide-ink/10 border-b border-ink/10">
+              {p.press.map((url) => (
+                <li key={url}>
+                  <a href={url} target="_blank" rel="noreferrer" className="group flex items-center justify-between gap-6 py-5">
+                    <span className="text-[clamp(1.125rem,1.8vw,1.5rem)] font-medium tracking-tight transition-colors group-hover:text-crimson">
+                      {outletOf(url)}
+                    </span>
+                    <span className="cta-line shrink-0 text-ink/70">
+                      Ler matéria <span className="cta-rule" aria-hidden />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {related.length > 0 && (
           <div className="mt-32">
@@ -101,9 +184,9 @@ export default async function ProjectPage({ params }: PageProps<"/projetos/[slug
               <h2 className="display text-[clamp(1.75rem,3vw,3rem)]">Mais em {cat.label.toLowerCase()}</h2>
               <ArrowLink href={cat.href}>Ver todos</ArrowLink>
             </div>
-            <div className="grid gap-x-5 gap-y-12 sm:grid-cols-3">
+            <div className="grid gap-8 sm:grid-cols-3">
               {related.map((r) => (
-                <ProjectCard key={r.slug} project={r} showCategory={false} aspect="aspect-[4/5]" />
+                <ProjectCard key={r.slug} project={r} showCategory={false} aspect="aspect-video" />
               ))}
             </div>
           </div>

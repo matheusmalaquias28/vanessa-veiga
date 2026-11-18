@@ -8,7 +8,7 @@ export function Signature() {
       <div className="fold-lines pointer-events-none absolute inset-0 text-ink" aria-hidden />
       <Tsuru
         className="pointer-events-none absolute -right-[8vw] top-1/2 h-[80vh] w-auto -translate-y-1/2 opacity-[0.05]"
-        ink="var(--color-ink)"
+        ink="var(--color-gold)"
         accent="var(--color-ink)"
       />
 

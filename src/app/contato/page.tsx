@@ -7,7 +7,11 @@ export const metadata: Metadata = { title: { absolute: "Contato — Vanessa Veig
 
 function BigLink({ href, label, value }: { href: string; label: string; value: string }) {
   return (
-    <a href={href} className="group block border-t border-paper/15 py-8 md:py-10">
+    <a
+      href={href}
+      {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
+      className="group block border-t border-paper/15 py-8 md:py-10"
+    >
       <span className="eyebrow mb-3 block text-stone">{label}</span>
       <span className="flex items-center justify-between gap-6">
         <span className="display break-all text-[clamp(1.75rem,4.4vw,4.75rem)] transition-colors duration-500 group-hover:text-crimson">
@@ -36,7 +40,7 @@ export default function ContatoPage() {
             <p className="eyebrow mb-8 text-stone">Contato</p>
           </FadeUp>
           <SplitReveal as="h1" immediate className="display max-w-[13ch] text-[clamp(3rem,7.5vw,9rem)]">
-            Vamos dar vida a uma nova <span className="serif-accent text-crimson">história?</span>
+            Que história você quer <span className="serif-accent text-crimson">contar?</span>
           </SplitReveal>
           <FadeUp immediate delay={0.2} className="mt-10 max-w-[44ch]">
             <p className="body-lg text-paper/70">
@@ -47,6 +51,8 @@ export default function ContatoPage() {
           <FadeUp immediate delay={0.35} className="mt-20">
             <BigLink href={`mailto:${contact.email}`} label="E-mail" value={contact.email} />
             <BigLink href={contact.phoneHref} label="Telefone" value={contact.phone} />
+            <BigLink href={contact.instagram} label="Instagram" value={contact.instagramHandle} />
+            <BigLink href={contact.imdb} label="IMDb" value="Vanessa Veiga" />
           </FadeUp>
         </div>
 
@@ -62,7 +68,7 @@ export default function ContatoPage() {
         </div>
       </div>
 
-      <Tsuru className="pointer-events-none absolute -bottom-[6vw] -right-[4vw] h-[40vw] w-auto opacity-[0.06]" ink="var(--color-paper)" accent="var(--color-paper)" />
+      <Tsuru className="pointer-events-none absolute -bottom-[6vw] -right-[4vw] h-[40vw] w-auto opacity-[0.06]" ink="var(--color-gold)" accent="var(--color-paper)" />
     </section>
   );
 }

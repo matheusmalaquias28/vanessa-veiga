@@ -172,3 +172,8 @@ html.lenis body {
 .intro-seen .preloader {
   display: none;
 }
+
+/* amarelo das dobras claras do tsuru (fora do @theme para não ser removido) */
+:root {
+  --color-gold: #f5c400;
+}

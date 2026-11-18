@@ -84,7 +84,7 @@ export function PageTransition() {
       <div className="pt-a absolute -inset-px bg-ink [clip-path:polygon(0_0,100%_0,0_100%)]" />
       <div className="pt-b absolute -inset-px bg-ink [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
       <div className="pt-mark absolute inset-0 grid place-items-center">
-        <Tsuru className="h-16 w-auto" ink="var(--color-paper)" />
+        <Tsuru className="h-16 w-auto" ink="var(--color-gold)" />
       </div>
     </div>
   );

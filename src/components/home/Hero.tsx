@@ -199,7 +199,7 @@ export function Hero() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[82%_50%] lg:object-[50%_30%] grayscale"
+            className="object-cover object-[55%_40%] lg:object-[50%_30%] grayscale"
           />
         </div>
         <div className="hr-shade invisible absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10 lg:bg-gradient-to-r lg:from-ink/50 lg:via-transparent lg:to-transparent" />
@@ -239,8 +239,7 @@ export function Hero() {
         </h1>
         <div className="mt-8 flex flex-col gap-8 lg:mt-10 lg:max-w-[30%]">
           <p className="hr-fade body-lg text-paper/80">
-            Desde 1996, conectando talentos, personagens e histórias que ganham vida no cinema, na televisão, no
-            streaming e no teatro.
+            Um olhar atento aos talentos e às escolhas que constroem cada história.
           </p>
           <div className="hr-fade">
             <ArrowLink href="/projetos">Explorar projetos</ArrowLink>

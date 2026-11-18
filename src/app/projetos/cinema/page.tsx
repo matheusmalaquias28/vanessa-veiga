@@ -11,7 +11,7 @@ export default function CinemaPage() {
         cover: "/images/areas/cinema.webp",
         headline: (
           <>
-            Personagens que ganham vida na <span className="serif-accent">grande tela.</span>
+            Entre o roteiro e a tela, a escolha de quem conta a <span className="serif-accent">história.</span>
           </>
         ),
         text: "Uma seleção de longas e curtas-metragens que fazem parte da trajetória de Vanessa Veiga na direção de elenco.",

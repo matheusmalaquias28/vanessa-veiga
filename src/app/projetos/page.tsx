@@ -9,7 +9,7 @@ export default function ProjetosPage() {
     <section data-theme="light" className="bg-canvas px-5 pb-32 pt-40 text-ink md:px-10 md:pt-52">
       <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
         <SplitReveal as="h1" immediate className="display text-[clamp(3rem,8vw,9.5rem)] lg:col-span-9">
-          Histórias que fazem parte de uma <span className="serif-accent text-crimson">trajetória.</span>
+          Meu trabalho, em <span className="serif-accent text-crimson">cena.</span>
         </SplitReveal>
         <FadeUp immediate delay={0.2} className="lg:col-span-3">
           <p className="body-lg text-ink/70">

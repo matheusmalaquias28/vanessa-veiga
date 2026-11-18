@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section data-theme="dark" className="grid min-h-[100svh] place-items-center bg-ink px-5 text-center text-paper">
       <div>
-        <Tsuru className="mx-auto h-20 w-auto" ink="var(--color-paper)" />
+        <Tsuru className="mx-auto h-20 w-auto" ink="var(--color-gold)" />
         <h1 className="display mt-10 text-[clamp(2.5rem,6vw,6rem)]">
           Esta cena ficou <span className="serif-accent text-crimson">fora do roteiro.</span>
         </h1>

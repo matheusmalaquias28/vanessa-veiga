@@ -2,13 +2,13 @@ import { FULL_NAME_VIEWBOX, TSURU_VIEWBOX, fullNamePaths, tsuruPaths } from "./b
 
 type TsuruProps = {
   className?: string;
-  /** cor das dobras escuras; por padrão segue a cor do texto */
+  /** cor das dobras claras; por padrão amarelo */
   ink?: string;
   accent?: string;
   title?: string;
 };
 
-export function Tsuru({ className, ink = "currentColor", accent = "var(--color-crimson)", title }: TsuruProps) {
+export function Tsuru({ className, ink = "var(--color-gold)", accent = "var(--color-crimson)", title }: TsuruProps) {
   return (
     <svg viewBox={TSURU_VIEWBOX} className={className} role={title ? "img" : undefined} aria-hidden={title ? undefined : true}>
       {title && <title>{title}</title>}
@@ -30,10 +30,10 @@ export function NameMark({ className }: { className?: string }) {
 }
 
 /** Tsuru + nome, usado no cabeçalho */
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, ink }: { className?: string; ink?: string }) {
   return (
     <span className={`flex items-center gap-3 ${className ?? ""}`}>
-      <Tsuru className="h-8 w-auto shrink-0 md:h-9" />
+      <Tsuru className="h-8 w-auto shrink-0 md:h-9" ink={ink} />
       <NameMark className="h-[0.7rem] w-auto md:h-3" />
       <span className="sr-only">Vanessa Veiga, Direção de Elenco</span>
     </span>

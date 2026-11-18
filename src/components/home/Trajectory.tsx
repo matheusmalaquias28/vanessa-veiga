@@ -55,7 +55,7 @@ export function Trajectory() {
       <div className="mb-14 grid gap-8 px-5 md:mb-20 md:px-10 lg:grid-cols-12">
         <p className="eyebrow text-stone lg:col-span-3">Desde 1996</p>
         <SplitReveal className="display max-w-[18ch] text-[clamp(2.5rem,5.2vw,5.75rem)] lg:col-span-9">
-          Uma trajetória construída através de <span className="serif-accent text-crimson">personagens.</span>
+          Experiência que orienta o olhar. Curiosidade que move o <span className="serif-accent text-crimson">trabalho.</span>
         </SplitReveal>
       </div>
 

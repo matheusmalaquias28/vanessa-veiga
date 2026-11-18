@@ -19,12 +19,14 @@ export function ProjectCard({
   poster?: boolean;
 }) {
   const usePoster = poster && !!p.heroPoster;
+  // pôster vertical só no modo pôster (3:4); nos demais cards, a imagem horizontal sem cortes
+  const src = usePoster ? p.heroPoster! : p.image;
   const meta = [showCategory ? categories[p.category].label : p.format, p.year].filter(Boolean).join(" · ");
   return (
     <Link href={`/projetos/${p.slug}`} className={`group block ${className}`}>
       <div className={`relative overflow-hidden bg-ink-soft ${usePoster ? "aspect-[3/4]" : aspect}`}>
         <Image
-          src={usePoster ? p.heroPoster! : p.image}
+          src={src}
           alt={p.title}
           fill
           sizes={sizes}

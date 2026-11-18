@@ -154,10 +154,10 @@ export function AreaPage({ config }: { config: AreaConfig }) {
                 <h2 className="display text-[clamp(1.75rem,3vw,3rem)]">{g.title}</h2>
                 <p className="text-xs font-light opacity-50">{g.items.length} produções</p>
               </div>
-              <div className="grid gap-x-5 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {g.items.map((p, i) => (
                   <FadeUp key={p.slug} delay={(i % 4) * 0.06}>
-                    <ProjectCard project={p} showCategory={false} aspect={i % 3 === 1 ? "aspect-[3/4]" : "aspect-[4/5]"} />
+                    <ProjectCard project={p} showCategory={false} aspect="aspect-video" />
                   </FadeUp>
                 ))}
               </div>

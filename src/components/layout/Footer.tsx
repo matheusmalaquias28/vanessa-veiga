@@ -12,7 +12,7 @@ export function Footer() {
       <div className="relative px-5 pt-28 md:px-10 md:pt-40">
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <h2 className="display max-w-[14ch] text-[clamp(2.75rem,6.5vw,6.5rem)]">
-            Vamos dar vida a uma nova <span className="serif-accent text-crimson">história?</span>
+            Vamos encontrar o elenco da sua próxima <span className="serif-accent text-crimson">história?</span>
           </h2>
           <ArrowLink href="/contato" className="shrink-0 text-paper">
             Entrar em contato
@@ -21,7 +21,7 @@ export function Footer() {
 
         <div className="mt-24 grid gap-12 border-t border-paper/15 pt-12 text-sm sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Tsuru className="h-12 w-auto" ink="var(--color-paper)" />
+            <Tsuru className="h-12 w-auto" ink="var(--color-gold)" />
             <p className="mt-6 max-w-[26ch] font-extralight leading-relaxed text-paper/70">
               Vanessa Veiga, Direção de Elenco. Conectando talentos, personagens e histórias desde 1996.
             </p>
@@ -58,6 +58,14 @@ export function Footer() {
             <a href={contact.phoneHref} className="mt-2 block font-light transition-colors hover:text-crimson">
               {contact.phone}
             </a>
+            <div className="mt-6 flex gap-5">
+              <a href={contact.instagram} target="_blank" rel="noreferrer" className="font-light transition-colors hover:text-crimson">
+                Instagram
+              </a>
+              <a href={contact.imdb} target="_blank" rel="noreferrer" className="font-light transition-colors hover:text-crimson">
+                IMDb
+              </a>
+            </div>
           </div>
         </div>
       </div>

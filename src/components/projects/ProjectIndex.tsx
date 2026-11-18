@@ -71,11 +71,12 @@ export function ProjectIndex() {
         <p className="text-xs font-light text-ink/60 tabular-nums">{count} produções</p>
       </div>
 
-      <div ref={grid} className="grid grid-cols-1 gap-x-5 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-        {ordered.map((p, i) =>
+      {/* colunas (masonry): cada imagem mantém o próprio formato, pôster vertical ou banner horizontal, sem cortes */}
+      <div ref={grid} className="columns-1 gap-x-8 sm:columns-2 lg:columns-3">
+        {ordered.map((p) =>
           visible(p.category) ? (
-            <div key={p.slug} data-flip-id={p.slug} className={`pi-item ${i % 3 === 1 ? "lg:mt-24" : ""}`}>
-              <ProjectCard project={p} poster aspect={p.featured ? "aspect-[4/5]" : "aspect-[1/1]"} />
+            <div key={p.slug} data-flip-id={p.slug} className="pi-item mb-8 break-inside-avoid">
+              <ProjectCard project={p} poster aspect="aspect-video" />
             </div>
           ) : null,
         )}
