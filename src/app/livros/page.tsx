@@ -6,7 +6,11 @@ import { ArrowLink } from "@/components/ui/ArrowLink";
 import { FadeUp, SplitReveal } from "@/components/ui/motion";
 import { bookRating, books } from "@/lib/content";
 
-export const metadata: Metadata = { title: { absolute: "Livros e Publicações — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Livros e Publicações — Vanessa Veiga" },
+  description: "Livros de Vanessa Veiga: 111 Monólogos Originais para Atores Contemporâneos, a edição para jovens atores e 11 Monólogos para Quem Tem Pressa.",
+  alternates: { canonical: "/livros" },
+};
 
 export default function LivrosPage() {
   return (

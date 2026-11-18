@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { AreaPage } from "@/components/projects/AreaPage";
 
-export const metadata: Metadata = { title: { absolute: "Direção de Elenco para Televisão — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Direção de Elenco para Televisão — Vanessa Veiga" },
+  description: "18 anos na TV Globo: Segundo Sol, Rock Story, Babilônia, Segunda Chamada, Aruanas, Se Eu Fechar os Olhos Agora e mais.",
+  alternates: { canonical: "/projetos/televisao" },
+};
 
 export default function TelevisaoPage() {
   return (

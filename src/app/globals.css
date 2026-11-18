@@ -12,6 +12,8 @@
   /* vermelho do tsuru da logo */
   --color-crimson: #e6003d;
   --color-wine: #5c1220;
+  /* também em :root abaixo, para os usos via var() em JSX */
+  --color-gold: #f5c400;
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
@@ -176,4 +178,21 @@ html.lenis body {
 /* amarelo das dobras claras do tsuru (fora do @theme para não ser removido) */
 :root {
   --color-gold: #f5c400;
+}
+
+/* Modal de compra dos livros */
+@keyframes modal-fade {
+  from { opacity: 0; }
+}
+@keyframes modal-rise {
+  from { opacity: 0; transform: translateY(32px) scale(0.98); }
+}
+@keyframes modal-step {
+  from { opacity: 0; transform: translateX(16px); }
+}
+.modal-fade { animation: modal-fade 0.35s ease-out both; }
+.modal-rise { animation: modal-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.modal-step { animation: modal-step 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .modal-fade, .modal-rise, .modal-step { animation: none; }
 }

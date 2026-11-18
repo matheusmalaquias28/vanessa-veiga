@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookCover } from "@/components/books/BookCover";
+import { BuyModal } from "@/components/books/BuyModal";
 import { Stars } from "@/components/books/Stars";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { FadeUp } from "@/components/ui/motion";
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/livros/[slug]">):
   const { slug } = await params;
   const b = getBook(slug);
   if (!b) return {};
-  return { title: { absolute: `${b.title} — Vanessa Veiga` }, description: b.description };
+  return { title: { absolute: `${b.title} — Vanessa Veiga` }, description: b.description, alternates: { canonical: `/livros/${b.slug}` } };
 }
 
 const fmtDate = (iso: string) =>
@@ -32,7 +33,6 @@ export default async function BookPage({ params }: PageProps<"/livros/[slug]">) 
   const rating = bookRating(b);
   const written = (b.reviews ?? []).filter((r) => r.text && !r.hideText);
   const others = books.filter((o) => o.slug !== b.slug);
-  const buyHref = b.buyUrl ?? "/contato";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -95,15 +95,19 @@ export default async function BookPage({ params }: PageProps<"/livros/[slug]">) 
 
           <div className="mt-10 border-t border-ink/15 pt-8">
             {b.price && <p className="mb-5 text-[clamp(1.75rem,2.6vw,2.5rem)] font-semibold tracking-tight">{b.price}</p>}
-            <a
-              href={buyHref}
-              {...(b.buyUrl ? { target: "_blank", rel: "noreferrer" } : {})}
-              className="flex w-full items-center justify-center gap-3 bg-ink px-8 py-5 text-sm font-medium uppercase tracking-[0.2em] text-paper transition-colors duration-300 hover:bg-crimson sm:w-auto sm:self-start"
-            >
-              {b.buyUrl ? "Comprar agora" : "Quero comprar"}
-              <span aria-hidden>→</span>
-            </a>
-            {!b.buyUrl && <p className="mt-4 text-sm font-light text-ink/55">Fale com a equipe para adquirir o seu exemplar.</p>}
+            {b.buyUrl ? (
+              <a
+                href={b.buyUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex w-full items-center justify-center gap-3 bg-ink px-8 py-5 text-sm font-medium uppercase tracking-[0.2em] text-paper transition-colors duration-300 hover:bg-crimson sm:w-auto sm:self-start"
+              >
+                Comprar agora
+                <span aria-hidden>→</span>
+              </a>
+            ) : (
+              <BuyModal book={{ title: b.title, cover: b.cover, price: b.price, tone: b.tone }} />
+            )}
           </div>
 
           <dl className="mt-12 divide-y divide-ink/10 border-y border-ink/10 text-sm">

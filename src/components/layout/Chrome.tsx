@@ -5,18 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { categories, categoryOrder, contact, nav, portraits, projects } from "@/lib/content";
+import { books, categories, categoryOrder, contact, nav, portraits } from "@/lib/content";
 import { Logo, Tsuru } from "../brand";
 import { intro } from "@/lib/intro";
 import { getLenis } from "./SmoothScroll";
 import type { LinkEventDetail } from "./PageTransition";
 
-const menuImages = [
-  portraits.hero,
-  portraits.about,
-  categories.teatro.image,
-  projects.find((p) => p.slug === "segundo-sol")!.image,
-  portraits.contact,
+/** Uma imagem por item do menu (mesma ordem de `nav`): Início, Sobre, Projetos, Livros, Contato */
+const menuImages: { src: string; className?: string }[] = [
+  { src: portraits.hero, className: "object-[50%_0%] grayscale" },
+  { src: portraits.contact, className: "object-top grayscale" },
+  { src: categories.teatro.image, className: "grayscale" },
+  { src: books[0].cover!, className: "object-top grayscale" },
+  { src: portraits.contact, className: "object-top grayscale" },
 ];
 
 /** Cabeçalho fixo + menu em tela cheia */
@@ -249,14 +250,14 @@ export function Chrome() {
           </div>
 
           <div className="mn-img relative hidden overflow-hidden lg:block">
-            {menuImages.map((src, i) => (
+            {menuImages.map(({ src, className }, i) => (
               <Image
-                key={src}
+                key={i}
                 src={src}
                 alt=""
                 fill
                 sizes="45vw"
-                className={`object-cover grayscale transition-[opacity,transform] duration-[900ms] ease-[var(--ease-out-expo)] ${i === 0 ? "object-[68%_50%]" : ""} ${
+                className={`object-cover transition-[opacity,transform] duration-[900ms] ease-[var(--ease-out-expo)] ${className ?? ""} ${
                   active === i ? "scale-100 opacity-100" : "scale-110 opacity-0"
                 }`}
               />

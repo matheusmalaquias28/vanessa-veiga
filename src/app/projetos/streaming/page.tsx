@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { AreaPage } from "@/components/projects/AreaPage";
 
-export const metadata: Metadata = { title: { absolute: "Projetos para Streaming — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Projetos para Streaming — Vanessa Veiga" },
+  description: "Séries, novelas e filmes para streaming com elenco de Vanessa Veiga: Beleza Fatal, Depois do Universo, Vizinhos, Vidas Bandidas e mais.",
+  alternates: { canonical: "/projetos/streaming" },
+};
 
 export default function StreamingPage() {
   return (

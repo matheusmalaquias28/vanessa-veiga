@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { AreaPage } from "@/components/projects/AreaPage";
 
-export const metadata: Metadata = { title: { absolute: "Direção de Elenco para Teatro — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Direção de Elenco para Teatro — Vanessa Veiga" },
+  description: "Espetáculos com direção de elenco de Vanessa Veiga: Clube da Esquina, Iron, O Leão no Inverno, Cinderella, Susi e Meu Filho é um Musical.",
+  alternates: { canonical: "/projetos/teatro" },
+};
 
 export default function TeatroPage() {
   return (

@@ -796,6 +796,23 @@ export const miniBio = [
 ];
 export const miniBioPdf = "/mini-bio-vanessa-veiga.pdf";
 
+/**
+ * Compra dos livros por Pix direto na conta da Vanessa.
+ * ATENÇÃO: frete, chave, titular, CNPJ e banco são FICTÍCIOS até a cliente enviar os dados reais.
+ */
+export const checkout = {
+  shipping: 15,
+  holder: "Vanessa Veiga Produções Artísticas LTDA",
+  cnpj: "00.000.000/0001-00",
+  bank: "Banco Exemplo S.A. (000)",
+  agency: "0001",
+  account: "123456-7",
+  pixKey: "00.000.000/0001-00",
+  /** Pix copia e cola ilustrativo (não é um código válido) */
+  pixCode:
+    "00020126580014BR.GOV.BCB.PIX0136ficticio-vanessa-veiga-0000-livros5204000053039865802BR5925VANESSA VEIGA PRODUCOES6009SAO PAULO62070503***6304ABCD",
+};
+
 export const contact = {
   email: "vveiga@contato.com.br",
   phone: "+55 88 96543-8765",

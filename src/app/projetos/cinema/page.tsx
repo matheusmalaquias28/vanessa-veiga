@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { AreaPage } from "@/components/projects/AreaPage";
 
-export const metadata: Metadata = { title: { absolute: "Direção de Elenco para Cinema — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Direção de Elenco para Cinema — Vanessa Veiga" },
+  description: "Longas e curtas com direção de elenco de Vanessa Veiga: Olga, Vai que Cola 2, Rio de Sangue, Sexa, O Gênio do Crime e mais.",
+  alternates: { canonical: "/projetos/cinema" },
+};
 
 export default function CinemaPage() {
   return (

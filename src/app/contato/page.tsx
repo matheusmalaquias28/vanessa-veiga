@@ -3,7 +3,11 @@ import { Tsuru } from "@/components/brand";
 import { FadeUp, RevealImage, SplitReveal } from "@/components/ui/motion";
 import { contact, portraits } from "@/lib/content";
 
-export const metadata: Metadata = { title: { absolute: "Contato — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Contato — Vanessa Veiga" },
+  description: "Fale com Vanessa Veiga sobre novos projetos, propostas profissionais e direção de elenco para cinema, televisão, streaming e teatro.",
+  alternates: { canonical: "/contato" },
+};
 
 function BigLink({ href, label, value }: { href: string; label: string; value: string }) {
   return (

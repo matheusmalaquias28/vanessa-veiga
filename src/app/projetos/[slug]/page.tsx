@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: PageProps<"/projetos/[slug]">
   if (!p) return {};
   return {
     title: `${p.title} · ${categories[p.category].label}`,
-    description: p.description ?? `${p.title}, trabalho de direção de elenco de Vanessa Veiga.`,
+    description: p.description ?? `${p.title}${p.year ? ` (${p.year})` : ""}: direção de elenco de Vanessa Veiga para ${categories[p.category].label.toLowerCase()}.`,
+    alternates: { canonical: `/projetos/${p.slug}` },
   };
 }
 

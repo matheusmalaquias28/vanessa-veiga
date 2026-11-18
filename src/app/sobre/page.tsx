@@ -5,7 +5,11 @@ import { ArrowLink } from "@/components/ui/ArrowLink";
 import { FadeUp, RevealImage, ScrubWords, SplitReveal } from "@/components/ui/motion";
 import { miniBio, miniBioPdf, portraits } from "@/lib/content";
 
-export const metadata: Metadata = { title: { absolute: "Sobre Vanessa Veiga — Trajetória e Direção de Elenco" } };
+export const metadata: Metadata = {
+  title: { absolute: "Sobre Vanessa Veiga — Trajetória e Direção de Elenco" },
+  description: "Conheça Vanessa Veiga: formada em Artes Cênicas e Pedagogia, diretora de elenco há 30 anos no cinema, na TV, no streaming e no teatro.",
+  alternates: { canonical: "/sobre" },
+};
 
 export default function SobrePage() {
   return (

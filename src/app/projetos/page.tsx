@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { ProjectIndex } from "@/components/projects/ProjectIndex";
 import { FadeUp, SplitReveal } from "@/components/ui/motion";
 
-export const metadata: Metadata = { title: { absolute: "Projetos e Produções — Vanessa Veiga" } };
+export const metadata: Metadata = {
+  title: { absolute: "Projetos e Produções — Vanessa Veiga" },
+  description: "Projetos de direção de elenco de Vanessa Veiga no cinema, na televisão, no streaming e no teatro, de Olga e Segundo Sol a Beleza Fatal.",
+  alternates: { canonical: "/projetos" },
+};
 
 export default function ProjetosPage() {
   return (
