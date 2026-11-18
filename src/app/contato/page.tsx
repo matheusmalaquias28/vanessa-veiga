@@ -61,9 +61,10 @@ export default function ContatoPage() {
             src={portraits.contact}
             alt="Vanessa Veiga"
             immediate
+            parallax={0}
             sizes="30vw"
-            className="mt-6 aspect-[3/4]"
-            imgClassName="grayscale"
+            className="mt-6 aspect-[2/3]"
+            imgClassName="object-top grayscale"
           />
         </div>
       </div>

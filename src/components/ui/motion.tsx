@@ -181,7 +181,8 @@ export function RevealImage({
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className ?? ""}`}>
-      <div className="ri-par absolute -inset-y-[8%] inset-x-0">
+      {/* a sobra vertical só existe para o parallax; sem ele a imagem fica inteira na moldura */}
+      <div className={`ri-par absolute inset-x-0 ${parallax ? "-inset-y-[8%]" : "inset-y-0"}`}>
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={`ri-img object-cover ${imgClassName}`} />
       </div>
     </div>

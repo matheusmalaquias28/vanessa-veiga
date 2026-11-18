@@ -56,7 +56,7 @@ export const portraits = {
   hero: "/images/vanessa/retrato-elenco.webp",
   about: u("1515138692129-197a2c608cfd"),
   aboutAlt: u("1533392151650-269f96231f65"),
-  contact: u("1562901169-5bf47e283c3a"),
+  contact: "/images/vanessa/retrato-contato.webp",
 };
 
 export const categories: Record<
